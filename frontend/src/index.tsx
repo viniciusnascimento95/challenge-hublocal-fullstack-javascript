@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Dashboard from './components/Dashboard';
 import './index.css';
-import App from './App';
+// import App from './App';
 import reportWebVitals from './reportWebVitals';
+// import SignIn from './components/SignIn';
+// import SignUp from './components/SignUp';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    {/* <App /> */}
+    {/* <SignIn /> */}
+    {/* <SignUp /> */}
+    <Dashboard />
   </React.StrictMode>,
   document.getElementById('root')
 );
