@@ -128,11 +128,13 @@ function DashboardContent() {
             <IconButton color="inherit">
               {/* <Badge badgeContent={4} color="secondary"> */}
               <Link href="#" color="inherit" underline="none">Sair </Link>
-                <AccountCircleIcon />
+              <AccountCircleIcon />
               {/* </Badge> */}
             </IconButton>
           </Toolbar>
         </AppBar>
+
+        {/* Component menu left */}
         <Drawer variant="permanent" open={open}>
           <Toolbar
             sx={{
@@ -153,6 +155,8 @@ function DashboardContent() {
             {/* {secondaryListItems} */}
           </List>
         </Drawer>
+
+        
         <Box
           component="main"
           sx={{
@@ -168,7 +172,7 @@ function DashboardContent() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              {/* Chart */}
+              {/* Chart */}              
               <Grid item xs={12} md={8} lg={9}>
                 <Paper
                   sx={{
@@ -178,6 +182,7 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
+                  
                   {/* <Chart /> */}
                 </Paper>
               </Grid>
