@@ -1,6 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  Unique,
+} from 'typeorm';
 
 @Entity()
+@Unique(['email'])
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
@@ -14,6 +22,21 @@ export class User {
   @Column()
   password: string;
 
-  @Column()
+  @Column({ nullable: false, type: 'varchar', length: 20 })
   role: string;
+
+  @Column({ nullable: false })
+  salt: string;
+
+  @Column({ nullable: true, type: 'varchar', length: 64 })
+  confirmationToken: string;
+
+  @Column({ nullable: true, type: 'varchar', length: 64 })
+  recoverToken: string;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
