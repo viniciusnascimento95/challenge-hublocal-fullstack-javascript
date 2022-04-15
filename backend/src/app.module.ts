@@ -6,7 +6,7 @@ import { TicketModule } from './ticket/ticket.module';
 import { UsersModule } from './users/users.module';
 import { TicketsModule } from './tickets/tickets.module';
 import { LocationsModule } from './locations/locations.module';
-import { CompaniesModule } from './companies/companies.module';
+import { CompaniesModule } from './modules/companies/companies.module';
 
 @Module({
   imports: [
