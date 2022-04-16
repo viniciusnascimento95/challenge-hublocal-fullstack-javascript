@@ -1,12 +1,12 @@
 {
     "type": "postgres",
     "post": 5432,
-    "host": "0.0.0.0",
+    "host": "localhost",
     "username": "docker",
     "password": "master",
     "database": "hublocal", 
     "migrations": ["./src/shared/infra/typeorm/migrations/*.ts"],
-    "entities": ["./src/modules/**/entities/*.ts"],
+    "entities": ["dist/**/*.entity{.ts,.js}"],
     "cli": {
         "migrationsDir": "./src/shared/infra/typeorm/migrations"
     }
