@@ -12,7 +12,7 @@ import {
 @Unique(['email'])
 export class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: string;
 
   @Column()
   name: string;
@@ -23,6 +23,9 @@ export class User {
   @Column()
   password: string;
 
+  @Column()
+  isAdmin: boolean;
+
   @CreateDateColumn()
   createdAt: Date;
 
@@ -31,7 +34,7 @@ export class User {
 
   constructor() {
     if (!this.id) {
-        this.id = uuidV4();
-    } 
+      this.id = uuidV4();
+    }
   }
 }
