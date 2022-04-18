@@ -23,24 +23,24 @@ export class CompaniesController {
   }
 
   @Get()
-  async findAll(): Promise<Company[]> {
-    const companies = await this.companiesService.findAll();
+  async listAll(): Promise<Company[]> {
+    const companies = await this.companiesService.listAll();
 
     return companies;
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.companiesService.findOne(+id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.companiesService.findOne(+id);
+  // }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCompanyDto: UpdateCompanyDto) {
     return this.companiesService.update(+id, updateCompanyDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.companiesService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.companiesService.remove(+id);
+  // }
 }
