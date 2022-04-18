@@ -5,8 +5,10 @@
     "username": "docker",
     "password": "master",
     "database": "hublocal", 
-    "migrations": ["./src/shared/infra/typeorm/migrations/*.ts"],
-    "entities": ["dist/**/*.entity{.ts,.js}"],
+    "migrations": ["./dist/shared/infra/typeorm/migrations/*.ts"],
+    "entities": ["dist/modules/**/*.entity{.ts,.js}"],
+    "synchronize": true,
+    "autoLoadEntities": true,
     "cli": {
         "migrationsDir": "./src/shared/infra/typeorm/migrations"
     }

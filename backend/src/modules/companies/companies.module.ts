@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { CompaniesService } from './companies.service';
-import { CompaniesController } from './companies.controller';
+import { CompaniesController } from './controllers/companies.controller';
+import { CompaniesService } from './services/companies.service';
 
 @Module({
+  // imports: [TypeOrmModule.forFeature([UsersRepository])],
   controllers: [CompaniesController],
   providers: [CompaniesService],
 })
