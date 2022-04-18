@@ -10,6 +10,7 @@ import {
 
 import { CreateCompanyDto } from '../dto/create-company.dto';
 import { UpdateCompanyDto } from '../dto/update-company.dto';
+import { Company } from '../infra/typeorm/entities/company.entity';
 import { CompaniesService } from '../services/companies.service';
 
 @Controller('companies')
@@ -22,8 +23,10 @@ export class CompaniesController {
   }
 
   @Get()
-  findAll() {
-    return this.companiesService.findAll();
+  async findAll(): Promise<Company[]> {
+    const companies = await this.companiesService.findAll();
+
+    return companies;
   }
 
   @Get(':id')
