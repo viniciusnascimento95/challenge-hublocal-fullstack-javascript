@@ -56,12 +56,31 @@ export class CompaniesService {
     return company;
   }
 
-  async updateCompany(id: string, data: UpdateCompanyDto): Promise<Company> {
-    const companyUpdate = await this.companiesRepository.findById(id);
+  async updateCompany({
+    id,
+    cnpj,
+    description,
+    name,
+  }: UpdateCompanyDto): Promise<Company> {
+    const company = await this.companiesRepository.findById(id);
 
-    return companyUpdate;
+    if (!company) {
+      throw new NotFoundException('This company does not exists');
+    }
 
-    // logica de atualização fazer
+    const cnpjAlreadyInUse = await this.companiesRepository.findByCnpj(cnpj);
+
+    if (cnpjAlreadyInUse) {
+      throw new NotFoundException('This CNPJ is already in use');
+    }
+
+    company.cnpj = cnpj ?? company.cnpj;
+    company.description = description ?? company.description;
+    company.name = name ?? company.name;
+
+    await this.companiesRepository.createCompany(company);
+
+    return company;
   }
 
   async removeCompany(company_id: string): Promise<void> {

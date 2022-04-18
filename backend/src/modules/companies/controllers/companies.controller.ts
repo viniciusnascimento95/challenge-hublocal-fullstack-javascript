@@ -17,10 +17,10 @@ import { CompaniesService } from '../services/companies.service';
 export class CompaniesController {
   constructor(private readonly companiesService: CompaniesService) {}
 
-  @Post()
-  create(@Body() createCompanyDto: CreateCompanyDto) {
-    return this.companiesService.create(createCompanyDto);
-  }
+  // @Post()
+  // create(@Body() createCompanyDto: CreateCompanyDto) {
+  //   return this.companiesService.create(createCompanyDto);
+  // }
 
   @Get()
   async listAll(): Promise<Company[]> {
@@ -34,10 +34,10 @@ export class CompaniesController {
   //   return this.companiesService.findOne(+id);
   // }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCompanyDto: UpdateCompanyDto) {
-    return this.companiesService.update(+id, updateCompanyDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateCompanyDto: UpdateCompanyDto) {
+  //   return this.companiesService.update(+id, updateCompanyDto);
+  // }
 
   // @Delete(':id')
   // remove(@Param('id') id: string) {

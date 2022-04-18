@@ -11,7 +11,7 @@ export interface ICompaniesRepository {
 
   listAll(): Promise<Company[]>;
 
-  updateCompany(data: UpdateCompanyDto): Promise<Company>;
+  // updateCompany(data: UpdateCompanyDto): Promise<Company>;
 
   removeCompany(company: Company): Promise<void>;
 }
