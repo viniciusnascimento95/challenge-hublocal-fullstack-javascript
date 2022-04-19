@@ -7,6 +7,8 @@ interface IUsersRepository {
 
   findById(id: string): Promise<User>;
 
+  findManyByIds(ids: string[]): Promise<User[]>;
+
   findByEmail(email: string): Promise<User>;
 
   createUser(data: CreateUserDto): Promise<User>;

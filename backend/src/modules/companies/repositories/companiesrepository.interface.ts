@@ -1,5 +1,4 @@
 import { CreateCompanyDto } from '../dto/create-company.dto';
-import { UpdateCompanyDto } from '../dto/update-company.dto';
 import { Company } from '../infra/typeorm/entities/company.entity';
 
 export interface ICompaniesRepository {
@@ -11,7 +10,19 @@ export interface ICompaniesRepository {
 
   listAll(): Promise<Company[]>;
 
-  // updateCompany(data: UpdateCompanyDto): Promise<Company>;
-
   removeCompany(company: Company): Promise<void>;
+
+  isResponsibleAvailable(responsible_id: string): Promise<boolean>;
+
+  isCompanyAvailable(company_id: string): Promise<boolean>;
+
+  responsibleOnCompany(
+    responsible_id: string,
+    company_id: string,
+  ): Promise<boolean>;
+
+  setResponsibleAsMain(
+    responsible_id: string,
+    company_id: string,
+  ): Promise<any>;
 }

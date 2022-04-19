@@ -6,6 +6,12 @@ import { User } from '../entities/user.entity';
 
 @EntityRepository(User)
 class UsersRepository extends Repository<User> implements IUsersRepository {
+  async findManyByIds(ids: string[]): Promise<User[]> {
+    const users = await this.findByIds(ids);
+
+    return users;
+  }
+
   async listAll(): Promise<User[]> {
     const users = await this.find();
 
@@ -38,8 +44,22 @@ class UsersRepository extends Repository<User> implements IUsersRepository {
     return user;
   }
 
-  updateUser(data: UpdateUserDto): Promise<User> {
-    throw new Error('Method not implemented.');
+  async updateUser({
+    id,
+    fullname,
+    password,
+    email,
+  }: UpdateUserDto): Promise<User> {
+    const user = this.create({
+      id,
+      fullname,
+      password,
+      email,
+    });
+
+    await this.save(user);
+
+    return user;
   }
 
   async deleteUser(user: User): Promise<void> {

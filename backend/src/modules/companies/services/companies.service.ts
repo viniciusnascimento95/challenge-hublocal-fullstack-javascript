@@ -6,7 +6,9 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsersRepository } from 'src/modules/users/infra/typeorm/repositories/users.repository';
 import { IUsersRepository } from 'src/modules/users/repositories/usersrepository.interface';
+import { AddResponsibleIntoCompanyDTO } from '../dto/add-responsible-into-company.dto';
 import { CreateCompanyDto } from '../dto/create-company.dto';
+import { SetResponsibleAsMainDTO } from '../dto/set-responsible-as-main.dto';
 import { UpdateCompanyDto } from '../dto/update-company.dto';
 import { Company } from '../infra/typeorm/entities/company.entity';
 import { CompaniesRepository } from '../infra/typeorm/repositories/companies.repository';
@@ -91,5 +93,68 @@ export class CompaniesService {
     }
 
     await this.companiesRepository.removeCompany(company);
+  }
+
+  async addResponsibleIntoCompany({
+    responsible_ids,
+    company_id,
+  }: AddResponsibleIntoCompanyDTO): Promise<Company> {
+    const users = await this.usersRepository.findManyByIds(responsible_ids);
+
+    if (users.length !== responsible_ids.length) {
+      throw new NotFoundException('At least one users has not founded');
+    }
+
+    const company = await this.companiesRepository.findById(company_id);
+
+    if (!company) {
+      throw new NotFoundException('This company does not exists');
+    }
+
+    company.responsible = users;
+
+    await this.companiesRepository.createCompany(company);
+
+    return company;
+  }
+
+  async setResponsibleAsMain({
+    company_id,
+    responsible_id,
+  }: SetResponsibleAsMainDTO): Promise<void> {
+    const company = await this.companiesRepository.findById(company_id);
+
+    if (!company) {
+      throw new NotFoundException('This company does not exists');
+    }
+
+    const responsible = await this.usersRepository.findById(responsible_id);
+
+    if (!responsible) {
+      throw new NotFoundException('This user does not exists');
+    }
+
+    const responsibleIsAvailable =
+      await this.companiesRepository.isResponsibleAvailable(responsible_id);
+
+    if (!responsibleIsAvailable) {
+      throw new ConflictException(
+        'This user already is main responsible in this or others companies',
+      );
+    }
+
+    const companyIsAvailable =
+      await this.companiesRepository.isCompanyAvailable(company_id);
+
+    if (!companyIsAvailable) {
+      throw new ConflictException(
+        'This company already has a main responsible',
+      );
+    }
+
+    await this.companiesRepository.setResponsibleAsMain(
+      responsible_id,
+      company_id,
+    );
   }
 }

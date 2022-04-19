@@ -5,7 +5,8 @@ import {
   Body,
   Patch,
   Param,
-  Delete,
+  Put,
+  HttpCode,
 } from '@nestjs/common';
 
 import { CreateCompanyDto } from '../dto/create-company.dto';
@@ -17,10 +18,31 @@ import { CompaniesService } from '../services/companies.service';
 export class CompaniesController {
   constructor(private readonly companiesService: CompaniesService) {}
 
-  // @Post()
-  // create(@Body() createCompanyDto: CreateCompanyDto) {
-  //   return this.companiesService.create(createCompanyDto);
-  // }
+  @Post()
+  async createCompany(@Body() data: CreateCompanyDto): Promise<Company> {
+    const { name, cnpj, description, owner_id } = data;
+
+    const company = await this.companiesService.createCompany({
+      name,
+      cnpj,
+      description,
+      owner_id,
+    });
+
+    return company;
+  }
+
+  @Put('/:company_id')
+  async updateCompany(
+    @Param('company_id') company_id: string,
+    @Body() data: UpdateCompanyDto,
+  ): Promise<Company> {
+    data.id = company_id;
+
+    const company = await this.companiesService.updateCompany(data);
+
+    return company;
+  }
 
   @Get()
   async listAll(): Promise<Company[]> {
@@ -29,18 +51,28 @@ export class CompaniesController {
     return companies;
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.companiesService.findOne(+id);
-  // }
+  @Put('/responsible/:company_id')
+  async setCompanyResponsible(
+    @Param('company_id') company_id: string,
+    @Body('responsible_ids') responsible_ids: string[],
+  ): Promise<Company> {
+    const company = await this.companiesService.addResponsibleIntoCompany({
+      responsible_ids,
+      company_id,
+    });
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateCompanyDto: UpdateCompanyDto) {
-  //   return this.companiesService.update(+id, updateCompanyDto);
-  // }
+    return company;
+  }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.companiesService.remove(+id);
-  // }
+  @HttpCode(204)
+  @Patch('/responsible/:company_id/main')
+  async setResponsibleAsMain(
+    @Param('company_id') company_id: string,
+    @Body('responsible_id') responsible_id: string,
+  ) {
+    await this.companiesService.setResponsibleAsMain({
+      company_id,
+      responsible_id,
+    });
+  }
 }
