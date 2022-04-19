@@ -9,9 +9,9 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Api hublocal')
-    .setDescription('The cats API description')
+    .setDescription('The API for hublocal test fullstack developer')
     .setVersion('1.0')
-    .addTag('cats')
+    .addTag('Hublocal API')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

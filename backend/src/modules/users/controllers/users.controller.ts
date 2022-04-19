@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { AuthenticateUserDto } from '../dto/authenticate-user';
 
 import { CreateUserDto } from '../dto/create-user.dto';
 
@@ -34,7 +35,9 @@ export class UsersController {
   }
 
   @Post('/sessions')
-  async authenticateUser(@Body() { email, password }: IRequest): Promise<any> {
+  async authenticateUser(
+    @Body() { email, password }: AuthenticateUserDto,
+  ): Promise<any> {
     return await this.usersService.authenticate({ email, password });
   }
 }
