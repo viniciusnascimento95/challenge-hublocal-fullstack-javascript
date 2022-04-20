@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,14 +12,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import PropTypes from 'prop-types';
 
 
 function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="https://hublocal.com.br">
+        Hublocal 
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -29,10 +30,22 @@ function Copyright(props: any) {
 
 const theme = createTheme();
 
-export default function SignIn() {
+interface ILoginProps {
+  setToken: string;
+}
+
+
+
+export default function SignIn({setToken}: ILoginProps) {
+
+  const [email, setEmail] = React.useState();
+  const [password, setPassword] = useState();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+
+
     console.log({
       email: data.get('email'),
       password: data.get('password'),
@@ -108,4 +121,8 @@ export default function SignIn() {
       </Container>
     </ThemeProvider>
   );
+}
+
+SignIn.propTypes = {
+  setToken: PropTypes.func.isRequired
 }
