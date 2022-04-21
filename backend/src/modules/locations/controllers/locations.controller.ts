@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { CreateLocationDto } from '../dto/create-location.dto';
 import { UpdateLocationDto } from '../dto/update-location.dto';
@@ -16,30 +17,40 @@ export class LocationsController {
   constructor(private readonly locationsService: LocationsService) {}
 
   @Post()
-  create(@Body() createLocationDto: CreateLocationDto) {
-    return this.locationsService.create(createLocationDto);
+  async createLocation(@Body() data: CreateLocationDto): Promise<void> {
+    await this.locationsService.createLocation(data);
   }
 
   @Get()
-  findAll() {
-    return this.locationsService.findAll();
+  async listAll(): Promise<Location[]> {
+    const locations = await this.locationsService.listAll();
+
+    return locations;
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.locationsService.findOne(+id);
+  @Get('/:company_id')
+  async listLocationsFromCompany(
+    @Param('company_id') company_id: string,
+  ): Promise<Location[]> {
+    const locations = await this.locationsService.findOne(company_id);
+
+    return locations;
   }
 
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateLocationDto: UpdateLocationDto,
-  ) {
-    return this.locationsService.update(+id, updateLocationDto);
+  @Put('/:location_id')
+  async updateLocation(
+    @Param('location_id') location_id: string,
+    @Body() data: UpdateLocationDto,
+  ): Promise<Location> {
+    data.id = location_id;
+
+    const place = await this.locationsService.updateLocation(data);
+
+    return place;
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.locationsService.remove(+id);
+  @Delete('/:location_id')
+  async removePlace(@Param('location_id') location_id: string) {
+    await this.locationsService.removeLocation(location_id);
   }
 }

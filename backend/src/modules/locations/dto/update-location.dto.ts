@@ -43,4 +43,8 @@ export class UpdateLocationDto extends PartialType(CreateLocationDto) {
   @ApiProperty()
   @IsString()
   company_id?: string;
+
+  @ApiProperty()
+  @IsString()
+  created_by;
 }
