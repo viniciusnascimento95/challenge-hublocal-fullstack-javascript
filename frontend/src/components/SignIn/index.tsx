@@ -32,34 +32,38 @@ function Copyright(props: any) {
 }
 
 const theme = createTheme();
-
-
 export default function SignIn() {  
 
   const auth = useAuth();
   const navigate = useNavigate();
 
   async function onFinish(values: {email: string; password: string}) {
-
     try {
-      await auth.authenticate(values.email, values.password);
-      
+      await auth.authenticate(values.email, values.password);      
       navigate("/dashboard");
     } catch (error) {
       
     }
   }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);     
-    
+    const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
-      password: data.get('password'),
-    });   
+      password: data.get('password'),      
+    });  
+
+    const values = {
+      email: data.get('email'),
+      password: data.get('password'), 
+    }
+
+
+    await onFinish(values as any);
+
   };
-  // onFinish({email: data.get('email'), password: data.get('password')});  
+ 
 
   return (
     <ThemeProvider theme={theme}>
