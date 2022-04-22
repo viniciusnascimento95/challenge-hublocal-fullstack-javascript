@@ -34,7 +34,7 @@ export class UsersController {
     return user;
   }
 
-  @Post('/sessions')
+  @Post('/login')
   async authenticateUser(
     @Body() { email, password }: AuthenticateUserDto,
   ): Promise<any> {

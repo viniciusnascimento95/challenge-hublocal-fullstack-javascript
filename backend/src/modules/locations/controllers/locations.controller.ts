@@ -21,33 +21,33 @@ export class LocationsController {
     await this.locationsService.createLocation(data);
   }
 
-  @Get()
-  async listAll(): Promise<Location[]> {
-    const locations = await this.locationsService.listAll();
+  // @Get()
+  // async listAll(): Promise<Location[]> {
+  //   const locations = await this.locationsService.listAll();
 
-    return locations;
-  }
+  //   return locations;
+  // }
 
-  @Get('/:company_id')
-  async listLocationsFromCompany(
-    @Param('company_id') company_id: string,
-  ): Promise<Location[]> {
-    const locations = await this.locationsService.findOne(company_id);
+  // @Get('/:company_id')
+  // async listLocationsFromCompany(
+  //   @Param('company_id') company_id: string,
+  // ): Promise<Location[]> {
+  //   const locations = await this.locationsService.findOne(company_id);
 
-    return locations;
-  }
+  //   return locations;
+  // }
 
-  @Put('/:location_id')
-  async updateLocation(
-    @Param('location_id') location_id: string,
-    @Body() data: UpdateLocationDto,
-  ): Promise<Location> {
-    data.id = location_id;
+  // @Put('/:location_id')
+  // async updateLocation(
+  //   @Param('location_id') location_id: string,
+  //   @Body() data: UpdateLocationDto,
+  // ): Promise<Location> {
+  //   data.id = location_id;
 
-    const place = await this.locationsService.updateLocation(data);
+  //   const place = await this.locationsService.updateLocation(data);
 
-    return place;
-  }
+  //   return place;
+  // }
 
   @Delete('/:location_id')
   async removePlace(@Param('location_id') location_id: string) {

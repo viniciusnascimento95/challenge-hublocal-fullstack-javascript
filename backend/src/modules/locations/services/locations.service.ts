@@ -61,11 +61,11 @@ export class LocationsService {
     return location;
   }
 
-  async listAll(): Promise<Location[]> {
-    const locations = this.locationRepository.listAll();
+  // async listAll(): Promise<Location[]> {
+  //   const locations = this.locationRepository.listAll();
 
-    return locations;
-  }
+  //   return locations;
+  // }
 
   async listAllByCompany(company_id: string): Promise<Location[]> {
     const company = await this.companiesRepository.findById(company_id);

@@ -12,7 +12,10 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+import { useAuth } from '../../context/AuthProvider/useAuth';
+import { useNavigate } from 'react-router-dom';
+
 
 
 function Copyright(props: any) {
@@ -30,27 +33,33 @@ function Copyright(props: any) {
 
 const theme = createTheme();
 
-interface ILoginProps {
-  setToken: string;
-}
 
+export default function SignIn() {  
 
+  const auth = useAuth();
+  const navigate = useNavigate();
 
-export default function SignIn({setToken}: ILoginProps) {
+  async function onFinish(values: {email: string; password: string}) {
 
-  const [email, setEmail] = React.useState();
-  const [password, setPassword] = useState();
+    try {
+      await auth.authenticate(values.email, values.password);
+      
+      navigate("/dashboard");
+    } catch (error) {
+      
+    }
+  }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-
-
+    const data = new FormData(event.currentTarget);     
+    
     console.log({
       email: data.get('email'),
       password: data.get('password'),
-    });
+    });   
   };
+  // onFinish({email: data.get('email'), password: data.get('password')});  
 
   return (
     <ThemeProvider theme={theme}>
@@ -68,7 +77,7 @@ export default function SignIn({setToken}: ILoginProps) {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Login
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -76,7 +85,7 @@ export default function SignIn({setToken}: ILoginProps) {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Email"
               name="email"
               autoComplete="email"
               autoFocus
@@ -86,14 +95,14 @@ export default function SignIn({setToken}: ILoginProps) {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Senha"
               type="password"
               id="password"
               autoComplete="current-password"
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              label="Lembrar-me"
             />
             <Button
               type="submit"
@@ -101,17 +110,12 @@ export default function SignIn({setToken}: ILoginProps) {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Entrar
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link href="/register" variant="body2">
+                  {"Ainda não tem conta ? Criar conta"}
                 </Link>
               </Grid>
             </Grid>
@@ -123,6 +127,6 @@ export default function SignIn({setToken}: ILoginProps) {
   );
 }
 
-SignIn.propTypes = {
-  setToken: PropTypes.func.isRequired
-}
+// SignIn.propTypes = {
+//   setToken: PropTypes.func.isRequired
+// }
