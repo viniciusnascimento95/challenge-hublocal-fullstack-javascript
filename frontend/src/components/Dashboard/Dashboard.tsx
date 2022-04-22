@@ -19,6 +19,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 // import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { mainListItems } from './ListItems';
+import { useAuth } from '../../context/AuthProvider/useAuth';
 // import Chart from './Chart';
 // import Deposits from './Deposits';
 // import Orders from './Orders';
@@ -88,6 +89,13 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
+const auth = useAuth();
+
+function logoutAuth() {
+  auth.logout();   
+}
+
+
 function DashboardContent() {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -127,7 +135,7 @@ function DashboardContent() {
             </Typography>
             <IconButton color="inherit">
               {/* <Badge badgeContent={4} color="secondary"> */}
-              <Link href="#" color="inherit" underline="none">Sair </Link>
+              <Link href="#" color="inherit" underline="none" onClick={}>Sair </Link>
               <AccountCircleIcon />
               {/* </Badge> */}
             </IconButton>

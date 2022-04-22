@@ -1,5 +1,3 @@
-import React, {createContext} from "react";
-
 export interface IUser {
     email?: string;
     password?: string;

@@ -58,10 +58,7 @@ export default function SignIn() {
       email: data.get('email'),
       password: data.get('password'), 
     }
-
-
     await onFinish(values as any);
-
   };
  
 
