@@ -5,10 +5,6 @@ import { User } from 'src/modules/users/infra/typeorm/entities/user.entity';
 export class CreateCompanyDto {
   @ApiProperty()
   @IsString()
-  id?: string;
-
-  @ApiProperty()
-  @IsString()
   name: string;
 
   @ApiProperty()

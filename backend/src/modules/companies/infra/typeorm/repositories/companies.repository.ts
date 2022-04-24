@@ -71,7 +71,6 @@ class CompaniesRepository
   }
 
   async createCompany({
-    id,
     name,
     cnpj,
     description,
@@ -79,7 +78,6 @@ class CompaniesRepository
     owner_id,
   }: CreateCompanyDto): Promise<Company> {
     const company = this.create({
-      id,
       name,
       cnpj,
       description,
