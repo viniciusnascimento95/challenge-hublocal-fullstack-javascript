@@ -12,11 +12,12 @@ import TableRow from '@mui/material/TableRow';
 // import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
 import Paper from '@mui/material/Paper';
 // import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 // import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Template from '../../components/shared/Template';
-import { Button } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import { Api } from '../../services/api';
 
 
@@ -112,7 +113,7 @@ interface CompanyData {
 //                       <TableCell align="right">
 //                         {Math.round(historyRow.amount * row.price * 100) / 100}
 //                       </TableCell>
-                      
+
 //                     </TableRow>
 //                   ))}
 //                 </TableBody>
@@ -144,13 +145,13 @@ export function ListCompanies() {
     const getData = async () => {
       try {
         const response = await Api.get('companies');
-       
+
         setCompanies(response.data);
-       
+
       } catch (err) {
-       
+
       } finally {
-       
+
       }
 
       // fetch("http://localhost:3333/users")
@@ -164,7 +165,20 @@ export function ListCompanies() {
   return (
 
     <Template title="Administração de Empresas">
-      <h2>Empresas</h2>
+      <Grid container spacing={4}>
+        <Grid item xs={10}>
+          <Typography variant="h5" gutterBottom component="div">
+            Empresas
+          </Typography>
+        </Grid>
+        <Grid item xs={2}>
+          <Button variant="outlined" component="a" href="/companies/create" startIcon={<AddIcon />}>
+            Adicionar
+          </Button>
+        </Grid>        
+      </Grid>
+
+      
       <TableContainer component={Paper} sx={{ border: 1, borderColor: 'grey.500' }}>
         <Table aria-label="collapsible table">
           <TableHead>
@@ -177,14 +191,14 @@ export function ListCompanies() {
             </TableRow>
           </TableHead>
           <TableBody>
-          {companies && companies.map((company, index) => (
+            {companies && companies.map((company, index) => (
               <TableRow
                 key={index}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell align="left">{company.name}</TableCell>
                 <TableCell align="left">{company.cnpj}</TableCell>
-                <TableCell align="right">{company.description}</TableCell> 
+                <TableCell align="right">{company.description}</TableCell>
                 {/* <TableCell align="right">{company.owner_id}</TableCell> */}
                 <TableCell align="center"><Button variant="outlined" startIcon={<EditIcon />} >Editar </Button> <Button variant="outlined" color="error" startIcon={<DeleteIcon />}>Excluir </Button></TableCell>
               </TableRow>

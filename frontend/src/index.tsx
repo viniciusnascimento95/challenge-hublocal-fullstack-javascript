@@ -12,6 +12,8 @@ import { ListUsers } from './pages/users/ListUsers';
 import { ListCompanies } from './pages/companies/ListCompanies';
 import { ListTicket } from './pages/tickets/ListTicket';
 import reportWebVitals from "./reportWebVitals";
+import { CreateCompany } from './pages/companies/CreateCompany';
+import { EditUsers } from './pages/companies/EditcCompany';
 
 
 ReactDOM.render( 
@@ -24,7 +26,13 @@ ReactDOM.render(
         {/* <Route path="dashboard" element={<Dashboard />} /> */}
         <Route path="users" element={<ListUsers />} />
         <Route path="companies" element={<ListCompanies />} />
+        <Route path="companies/create" element={<CreateCompany />} />
+        <Route path="companies/edit/:id" element={<EditUsers />} />
+
+        
         <Route path="tickets" element={<ListTicket />} />
+
+       
 
         
       </Routes>
