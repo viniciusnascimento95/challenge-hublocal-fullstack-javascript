@@ -1,7 +1,5 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Routes} from "react-router-dom";
-// import Dashboard from './components/Dashboard/Dashboard';
 import './index.css';
 // import App from './App';
 // import reportWebVitals from './reportWebVitals';
@@ -19,22 +17,14 @@ import { EditUsers } from './pages/companies/EditcCompany';
 ReactDOM.render( 
   <AuthProvider>
     <BrowserRouter>
-      <Routes>
-        {/* <Route path="/" element={<Dashboard />} /> */}
+      <Routes>        
         <Route path="login" element={<SignIn />} />
         <Route path="register" element={<SignUp />} />
-        {/* <Route path="dashboard" element={<Dashboard />} /> */}
         <Route path="users" element={<ListUsers />} />
         <Route path="companies" element={<ListCompanies />} />
         <Route path="companies/create" element={<CreateCompany />} />
-        <Route path="companies/edit/:id" element={<EditUsers />} />
-
-        
+        <Route path="companies/edit/:id" element={<EditUsers />} />        
         <Route path="tickets" element={<ListTicket />} />
-
-       
-
-        
       </Routes>
     </BrowserRouter>
     </AuthProvider>,
