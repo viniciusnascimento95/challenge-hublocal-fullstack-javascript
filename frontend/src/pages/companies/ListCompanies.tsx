@@ -19,6 +19,7 @@ import Paper from '@mui/material/Paper';
 import Template from '../../components/shared/Template';
 import { Button, Grid, Typography } from '@mui/material';
 import { Api } from '../../services/api';
+import { Link } from 'react-router-dom';
 
 
 interface CompanyData {
@@ -29,7 +30,6 @@ interface CompanyData {
   responsible: string[];
   owner_id: string;
   created_at: string;
-
 }
 
 // function createData(
@@ -162,6 +162,8 @@ export function ListCompanies() {
   }, []);
   console.log(companies)
 
+  const profileUrl = "/companies/edit/projects/profile/";
+
   return (
 
     <Template title="Administração de Empresas">
@@ -200,7 +202,7 @@ export function ListCompanies() {
                 <TableCell align="left">{company.cnpj}</TableCell>
                 <TableCell align="right">{company.description}</TableCell>
                 {/* <TableCell align="right">{company.owner_id}</TableCell> */}
-                <TableCell align="center"><Button variant="outlined" startIcon={<EditIcon />} >Editar </Button> <Button variant="outlined" color="error" startIcon={<DeleteIcon />}>Excluir </Button></TableCell>
+                <TableCell align="center"><Button variant="outlined" startIcon={<EditIcon />} component={Link} to={`/companies/edit/${company.id}`} >Editar </Button> <Button variant="outlined" color="error" startIcon={<DeleteIcon />}>Excluir </Button></TableCell>
               </TableRow>
             ))}
           </TableBody>

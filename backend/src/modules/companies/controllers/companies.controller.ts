@@ -51,6 +51,12 @@ export class CompaniesController {
     return companies;
   }
 
+  @Get('/:id')
+  async findOne(id: string): Promise<Company> {
+    const company = await this.companiesService.findOne(id);
+    return company;
+  }
+
   @Put('/responsible/:company_id')
   async setCompanyResponsible(
     @Param('company_id') company_id: string,

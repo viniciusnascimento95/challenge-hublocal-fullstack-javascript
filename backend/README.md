@@ -1,3 +1,19 @@
+### Aplication api backend 
+
+
+[x] Validação de chamadas assíncronas para evitar travamentos
+[x] Cadastrar um usuários no sistema backend
+[x] Validar os campos do formulário
+[x] Validar o data types dos campos no banco de dados
+
+[x] JWT configurações do backend
+
+[x] CRUD Empresas
+[x] CRUD Localização
+[] CRUD de Chamados
+
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
